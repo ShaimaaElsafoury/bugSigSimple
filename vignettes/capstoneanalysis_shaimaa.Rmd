@@ -46,41 +46,56 @@ names(dat)
 
 # Subsetting
 
-Subsetting only studies done on humans - 6 of 17 studies were excluded because they were either done on mice or not statistically reliable (Cregger et. al)
+Subsetting only studies on meconium 
 
 ```{r, messages=FALSE}
+
 subset.dat <-
   dat[which(
-    dat$PMID == "30778155" |
-      dat$PMID == "32192080" |
-      dat$PMID == "31087436" |
-      dat$PMID == "26901400" |
-      dat$PMID == "33839907" |
-      dat$PMID == "32046455" |
-      dat$PMID == "33925708" |
-      dat$PMID == "32299442" |
-      dat$PMID == "33313185" |
-      dat$PMID == "34268384" |
-      dat$PMID == "33660232"
+    dat$PMID == "28018325" |
+      dat$PMID == "24614698" |
+      dat$PMID == "29207565" |
+      dat$PMID == "29459704" |
+      dat$PMID == "29538354" |
+      dat$PMID == "32012716" |
+      dat$PMID == "20566857" |
+      dat$PMID == "28512451" |
+      dat$PMID == "28112736" |
+      dat$PMID == "27362264"
   ),]
 ```
+
+subset.dat2 <-
+  subset.dat[which(
+    subset.dat$`Group 0 name` == "vaginal delivery"|
+      subset.dat$`Group 0 name` == "vaginally born controls"|
+      subset.dat$`Group 0 name` == "vaginal delivery in mecomium"|
+      subset.dat$`Group 0 name` == "	vaginally born controls"),]
+
+
+
+subset.dat3 <-
+  subset.dat2[which(
+    subset.dat2$`Body site` == "meconium" 
+  ),]
+  
 
 # All studies
 
 Summary of studies and most frequent taxa increased and decreased in endometriosis patients for all studies
 
 ```{r, messages=FALSE}
-bugSigSimple::createStudyTable(subset.dat)
+bugSigSimple::createStudyTable(subset.dat3)
 ```
 
 ```{r}
-getMostFrequentTaxa(subset.dat,n=10)
+getMostFrequentTaxa(subset.dat3,n=50)
 ```
 
 ```{r}
-getMostFrequentTaxa(subset.dat,sig.type="increased")
+getMostFrequentTaxa(subset.dat3,sig.type="increased")
 ```
 
 ```{r}
-getMostFrequentTaxa(subset.dat,sig.type="decreased")
+getMostFrequentTaxa(subset.dat3,sig.type="decreased")
 ```
